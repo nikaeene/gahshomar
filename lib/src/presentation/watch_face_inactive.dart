@@ -29,7 +29,7 @@ class _WatchFaceInactiveState extends State<WatchFaceInactive> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(timeString),
+      child: Text(timeString, style: const TextStyle(fontSize: 20, color: Colors.grey)),
     );
   }
 }
