@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
+import 'clock/clock_painter.dart';
+
 class WatchFaceActive extends StatefulWidget {
   const WatchFaceActive({super.key});
 
@@ -12,14 +14,12 @@ class WatchFaceActive extends StatefulWidget {
 }
 
 class _WatchFaceActiveState extends State<WatchFaceActive> {
-  String timeString = '00:00:00';
-
+  DateTime currentDateAndTime = DateTime.now();
   @override
   void initState() {
-    timeString = formatDateTime(DateTime.now());
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        timeString = formatDateTime(DateTime.now());
+        currentDateAndTime = DateTime.now().add(Duration(hours: 3, minutes: 30));
       });
     });
     super.initState();
@@ -29,22 +29,55 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
     return '${dateTime.hour}:${dateTime.minute}:${dateTime.second}';
   }
 
-  String formatPersianDate(Date d) {
+  DateFormatter formatPersianDate(Date d) {
     final f = d.formatter;
 
-    return '${f.wN} ${f.d.toPersianDigit()} ${f.mN} ${f.yyyy.toPersianDigit()}';
+    return f;
   }
 
   @override
   Widget build(BuildContext context) {
-    Jalali jNow = Jalali.now().add(hours: 3);
+    final jNow = Jalali.fromDateTime(currentDateAndTime);
 
-    return Center(
-      child: Column(
-        children: [
-          Text('${jNow.hour.toString().toPersianDigit()}:${jNow.minute.toString().toPersianDigit()}:${jNow.second.toString().toPersianDigit()}'),
-          Text(formatPersianDate(jNow)),
-        ],
+    var screenSize = MediaQuery.of(context).size;
+    var screenWidth = screenSize.width;
+    var screenHeight = screenSize.height;
+    var clientHeight = screenHeight - kToolbarHeight;
+
+    return Container(
+      width: screenWidth,
+      height: screenHeight,
+      color: Colors.white,
+      child: Center(
+        child: Stack(
+          children: [
+            Positioned(
+                top: screenHeight * 0.25,
+                right: screenWidth * 0.05,
+                child: Container(
+                  padding: EdgeInsets.only(right: 5, left: 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
+                        borderRadius: BorderRadius.circular(2.5)),
+                    child: Text(formatPersianDate(jNow).dd.toString().toPersianDigit()))),
+
+            Positioned(
+                top: screenHeight * 0.25,
+                left: screenWidth * 0.05,
+                child: Text(formatPersianDate(jNow).wN.toString().toPersianDigit())),
+
+
+            Container(
+              width: screenWidth * 0.85,
+              height: clientHeight * 0.85,
+
+              child: CustomPaint(
+                painter: ClockPainter( currentTime: currentDateAndTime,),
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }

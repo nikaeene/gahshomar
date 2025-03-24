@@ -18,9 +18,6 @@ class MyApp extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Shape: ${shape == WearShape.round ? 'round' : 'square'}',
-                  ),
                   child!,
                 ],
               );

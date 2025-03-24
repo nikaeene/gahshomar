@@ -28,8 +28,16 @@ class _WatchFaceInactiveState extends State<WatchFaceInactive> {
   }
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(timeString, style: const TextStyle(fontSize: 20, color: Colors.grey)),
+    var screenSize = MediaQuery.of(context).size;
+    var screenWidth = screenSize.width;
+    var screenHeight = screenSize.height;
+    return Container(
+      width: screenWidth,
+      height: screenHeight,
+      color: Colors.white,
+      child: Center(
+        child: Text(timeString, style: const TextStyle(fontSize: 20, color: Colors.grey)),
+      ),
     );
   }
 }
