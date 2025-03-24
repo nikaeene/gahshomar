@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class WatchFaceActive extends StatefulWidget {
   const WatchFaceActive({super.key});
@@ -26,10 +28,24 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
   String formatDateTime(DateTime dateTime) {
     return '${dateTime.hour}:${dateTime.minute}:${dateTime.second}';
   }
+
+  String formatPersianDate(Date d) {
+    final f = d.formatter;
+
+    return '${f.wN} ${f.d.toPersianDigit()} ${f.mN} ${f.yyyy.toPersianDigit()}';
+  }
+
   @override
   Widget build(BuildContext context) {
+    Jalali jNow = Jalali.now().add(hours: 3);
+
     return Center(
-      child: Text(timeString),
+      child: Column(
+        children: [
+          Text('${jNow.hour.toString().toPersianDigit()}:${jNow.minute.toString().toPersianDigit()}:${jNow.second.toString().toPersianDigit()}'),
+          Text(formatPersianDate(jNow)),
+        ],
+      ),
     );
   }
 }
