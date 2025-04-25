@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class ClockPainter extends CustomPainter {
   final DateTime currentTime;
-  const ClockPainter({required this.currentTime});
+  final bool nightMode;
+  const ClockPainter({required this.currentTime, required this.nightMode});
 @override
   void paint(Canvas canvas, Size size) {
   final width = size.width;
@@ -20,7 +21,7 @@ class ClockPainter extends CustomPainter {
 
   // Outer border paint
   Paint outerBorderPaint = Paint()
-    ..color = Colors.black
+    ..color = nightMode? Colors.black : Colors.white
     ..strokeWidth = 10
     ..style = PaintingStyle.stroke;
 
@@ -28,28 +29,28 @@ class ClockPainter extends CustomPainter {
   //canvas.drawCircle(centerOffset, radius, outerBorderPaint);
 
   // inner base paint
-  Paint innerBasePaint = Paint()..color = Colors.black;
+  Paint innerBasePaint = Paint()..color = nightMode? Colors.white : Colors.black;
 
   //  inner base paint
   canvas.drawCircle(centerOffset, radius * 0.04, innerBasePaint);
 
   Paint minutesTicksPaint = Paint()..color = Colors.grey;
   Paint hourTicksPaint = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 0.75
+    ..color = nightMode? Colors.white : Colors.black
+    ..strokeWidth = 5
     ..style = PaintingStyle.stroke;
 
   Paint minutesNeedlePaint = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 3.5;
+    ..color = nightMode? Colors.white : Colors.black
+    ..strokeWidth = 5;
 
   Paint hoursNeedlePaint = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 4.5;
+    ..color = nightMode? Colors.white : Colors.black
+    ..strokeWidth = 5;
 
   Paint secondsNeedlePaint = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 0.5;
+    ..color = nightMode? Colors.white : Colors.black
+    ..strokeWidth = 5;
   // draw the tick's
   canvas.save();
   canvas.translate(centerOffset.dx, centerOffset.dy);

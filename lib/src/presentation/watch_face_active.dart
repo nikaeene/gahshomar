@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gahshomar/src/presentation/clock/watch_face_painter.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
@@ -39,6 +40,8 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
   Widget build(BuildContext context) {
     final jNow = Jalali.fromDateTime(currentDateAndTime);
 
+    bool nightMode = currentDateAndTime.hour < 6 || currentDateAndTime.hour > 18;
+
     var screenSize = MediaQuery.of(context).size;
     var screenWidth = screenSize.width;
     var screenHeight = screenSize.height;
@@ -47,7 +50,7 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
     return Container(
       width: screenWidth,
       height: screenHeight,
-      color: Colors.white,
+      color: nightMode? Colors.black : Colors.white,
       child: Center(
         child: Stack(
           children: [
@@ -57,22 +60,39 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
                 child: Container(
                   padding: EdgeInsets.only(right: 5, left: 5),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 1),
+                        border: Border.all(color: nightMode? Colors.white : Colors.black, width: 1),
                         borderRadius: BorderRadius.circular(2.5)),
-                    child: Text(formatPersianDate(jNow).dd.toString().toPersianDigit()))),
+                    child: Text(formatPersianDate(jNow).dd.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontSize: 16)))),
 
             Positioned(
-                top: screenHeight * 0.25,
+                top: screenHeight * 0.22,
                 left: screenWidth * 0.05,
-                child: Text(formatPersianDate(jNow).wN.toString().toPersianDigit())),
+                child: Text(formatPersianDate(jNow).wN.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontSize: 12))),
 
+            Positioned(
+                top: screenHeight * 0.28,
+                left: screenWidth * 0.075,
+                child: Text(formatPersianDate(jNow).mN.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontSize: 10))),
 
-            Container(
+            Positioned(top: screenHeight * 0.0,
+              left: screenWidth * 0.35,
+              child: Image.asset('assets/images/foroodja512.png', width: 25, height: 25,),),
+
+            Positioned(bottom: -screenHeight * 0.0,
+              left: screenWidth * 0.35,
+              child: Image.asset(
+                jNow.julianDayNumber > 93
+                    ? 'assets/images/spring.png'
+                    : jNow.julianDayNumber > 186
+                        ? 'assets/images/summer.png'
+                        : jNow.julianDayNumber>275?'assets/images/fall.png':'assets/images/winter.png', width: 25, height: 25,),),
+
+            SizedBox(
               width: screenWidth * 0.85,
               height: clientHeight * 0.85,
 
               child: CustomPaint(
-                painter: ClockPainter( currentTime: currentDateAndTime,),
+                painter: WatchFacePainter(currentDateAndTime),
               ),
             ),
 
