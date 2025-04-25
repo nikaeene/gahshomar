@@ -65,27 +65,15 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
                     child: Text(formatPersianDate(jNow).dd.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontSize: 16)))),
 
             Positioned(
-                top: screenHeight * 0.22,
-                left: screenWidth * 0.05,
+                top: screenHeight * 0.20,
+                left: screenWidth * 0.075,
                 child: Text(formatPersianDate(jNow).wN.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontSize: 12))),
 
             Positioned(
-                top: screenHeight * 0.28,
+                top: screenHeight * 0.3,
                 left: screenWidth * 0.075,
                 child: Text(formatPersianDate(jNow).mN.toString().toPersianDigit(), style: TextStyle(color: nightMode? Colors.white : Colors.black, fontSize: 10))),
 
-            Positioned(top: screenHeight * 0.0,
-              left: screenWidth * 0.35,
-              child: Image.asset('assets/images/foroodja512.png', width: 25, height: 25,),),
-
-            Positioned(bottom: -screenHeight * 0.0,
-              left: screenWidth * 0.35,
-              child: Image.asset(
-                jNow.julianDayNumber > 93
-                    ? 'assets/images/spring.png'
-                    : jNow.julianDayNumber > 186
-                        ? 'assets/images/summer.png'
-                        : jNow.julianDayNumber>275?'assets/images/fall.png':'assets/images/winter.png', width: 25, height: 25,),),
 
             SizedBox(
               width: screenWidth * 0.85,

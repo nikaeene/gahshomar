@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class WatchFacePainter extends CustomPainter {
@@ -12,7 +11,7 @@ class WatchFacePainter extends CustomPainter {
     final centerX = size.width / 2;
     final centerY = size.height / 2;
     final center = Offset(centerX, centerY);
-    final radius = min(centerX, centerY);
+    final radius = min(size.width, size.height);
 
     // Paint for the outer circle
     final outerCirclePaint = Paint()
@@ -46,13 +45,13 @@ class WatchFacePainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     // Draw the outer circle
-    canvas.drawCircle(center, radius - 4, outerCirclePaint);
+    canvas.drawCircle(center, radius - 25, outerCirclePaint);
 
     // Draw hour marks
     for (int i = 0; i < 12; i++) {
       final angle = i * (2 * pi / 12);
-      final outerRadius = radius - 8;
-      final innerRadius = radius - 16;
+      final outerRadius = radius - 28;
+      final innerRadius = radius - 36;
 
       final outerX = centerX + outerRadius * cos(angle);
       final outerY = centerY + outerRadius * sin(angle);
@@ -70,8 +69,8 @@ class WatchFacePainter extends CustomPainter {
     for (int i = 0; i < 60; i++) {
       if (i % 5 != 0) {  // Skip positions where hour marks are
         final angle = i * (2 * pi / 60);
-        final outerRadius = radius - 8;
-        final innerRadius = radius - 12;
+        final outerRadius = radius - 28;
+        final innerRadius = radius - 32;
 
         final outerX = centerX + outerRadius * cos(angle);
         final outerY = centerY + outerRadius * sin(angle);
