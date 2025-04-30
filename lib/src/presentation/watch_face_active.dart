@@ -5,7 +5,6 @@ import 'package:gahshomar/src/presentation/clock/watch_face_painter.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
-import 'clock/clock_painter.dart';
 
 class WatchFaceActive extends StatefulWidget {
   const WatchFaceActive({super.key});
