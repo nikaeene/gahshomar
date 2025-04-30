@@ -19,7 +19,7 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
   void initState() {
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        currentDateAndTime = DateTime.now().add(Duration(hours: 3, minutes: 30));
+        currentDateAndTime = DateTime.now().toUtc().add(Duration(hours: 2, minutes: 30));
       });
     });
     super.initState();
@@ -79,7 +79,7 @@ class _WatchFaceActiveState extends State<WatchFaceActive> {
               height: clientHeight * 0.85,
 
               child: CustomPaint(
-                painter: WatchFacePainter(currentDateAndTime),
+                painter: WatchFacePainter(currentDateAndTime, nightMode?  Colors.white : Colors.black),
               ),
             ),
 

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class WatchFacePainter extends CustomPainter {
   final DateTime dateTime;
+  final Color color;
 
-  WatchFacePainter(this.dateTime);
+  WatchFacePainter(this.dateTime, this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -15,33 +16,33 @@ class WatchFacePainter extends CustomPainter {
 
     // Paint for the outer circle
     final outerCirclePaint = Paint()
-      ..color = Colors.white
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
 
     // Paint for the hour marks
     final hourMarkPaint = Paint()
-      ..color = Colors.white
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
     // Paint for hour hand
     final hourHandPaint = Paint()
-      ..color = Colors.white
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 6
       ..strokeCap = StrokeCap.round;
 
     // Paint for minute hand
     final minuteHandPaint = Paint()
-      ..color = Colors.white
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
 
     // Paint for center circle
     final centerDotPaint = Paint()
-      ..color = Colors.white
+      ..color = color
       ..style = PaintingStyle.fill;
 
     // Draw the outer circle
@@ -81,7 +82,9 @@ class WatchFacePainter extends CustomPainter {
           Offset(innerX, innerY),
           Offset(outerX, outerY),
           Paint()
-            ..color = Colors.white.withOpacity(0.5)
+            ..color = color.withValues(
+              alpha: 100,
+            )
             ..strokeWidth = 1,
         );
       }

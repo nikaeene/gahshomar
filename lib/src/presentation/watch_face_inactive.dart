@@ -14,10 +14,10 @@ class _WatchFaceInactiveState extends State<WatchFaceInactive> {
 
   @override
   void initState() {
-    timeString = formatDateTime(DateTime.now());
+    timeString = formatDateTime(DateTime.now().toUtc().add(const Duration(hours: 2, minutes: 30)));
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        timeString = formatDateTime(DateTime.now());
+        timeString = formatDateTime(DateTime.now().toUtc().add(const Duration(hours: 2, minutes: 30)));
       });
     });
     super.initState();
